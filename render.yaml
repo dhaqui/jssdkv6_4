@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: paypal-v6-sdk-demo
+    runtime: node
+    # Render uses Node 20 by default; the repo targets Node 20+
+    buildCommand: >-
+      cd server/node && npm install --include=dev && npm run build &&
+      cd ../../client/prebuiltPages/react && npm install --include=dev && npm run build &&
+      cd ../../../client/components/paypalPayments/oneTimePayment/typescript && npm install --include=dev && npm run build
+    startCommand: cd server/node && NODE_ENV=production node dist/src/server.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # --- Set these in the Render dashboard or via CLI ---
+      - key: PAYPAL_SANDBOX_CLIENT_ID
+        sync: false        # marks as "secret" — fill in from Render dashboard
+      - key: PAYPAL_SANDBOX_CLIENT_SECRET
+        sync: false
+      # Optional: Fastlane domain allowlist (comma-separated)
+      # - key: DOMAINS
+      #   value: your-render-app.onrender.com
