@@ -3,11 +3,8 @@ services:
     name: paypal-v6-sdk-demo
     runtime: node
     # Render uses Node 20 by default; the repo targets Node 20+
-    buildCommand: >-
-      cd server/node && npm install --include=dev && npm run build &&
-      cd ../../client/prebuiltPages/react && npm install --include=dev && npm run build &&
-      cd ../../../client/components/paypalPayments/oneTimePayment/typescript && npm install --include=dev && npm run build
-    startCommand: cd server/node && NODE_ENV=production node dist/src/server.js
+    buildCommand: npm run build
+    startCommand: npm start
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
