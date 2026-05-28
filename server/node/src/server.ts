@@ -6,15 +6,15 @@ import routes from "./routes/index";
 import errorMiddleware from "./middleware/errorMiddleware";
 import crossOriginOpenerPolicyMiddleware from "./middleware/crossOriginOpenerPolicyMiddleware";
 
+// process.cwd() = repo root when started via `node server/node/dist/src/server.js`
+// __dirname-relative paths shift between dev (src/) and prod (dist/src/) layouts
 const CLIENT_STATIC_DIRECTORY =
   process.env.CLIENT_STATIC_DIRECTORY ||
-  // eslint-disable-next-line unicorn/prefer-module
-  path.join(__dirname, "../../../client");
+  path.join(process.cwd(), "client");
 
 const WELL_KNOWN_STATIC_DIRECTORY =
   process.env.WELL_KNOWN_STATIC_DIRECTORY ||
-  // eslint-disable-next-line unicorn/prefer-module
-  path.join(__dirname, "../../../.well-known");
+  path.join(process.cwd(), ".well-known");
 
 const app = express();
 
